@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sales - MicroBizz Hub</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        .navbar {
+            background-color: rgb(37, 36, 36);
+            backdrop-filter: blur(9px);
+        }
+        .navbar h4, .navbar .bi {
+            color: white;
+            cursor: pointer;
+        }
+
+        #sidebar {
+            width: 250px;
+            left: -250px;
+            background: #d3d3d5;
+            transition: 0.3s;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            z-index: 1000;
+            padding-top: 60px;
+        }
+        #sidebar .nav-link {
+            color: black;
+            padding: 10px;
+        }
+        #sidebar .nav-link:hover {
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            z-index: 999;
+        }
+
+        #profileMenu {
+            background: white;
+            border-radius: 5px;
+            display: none;
+            position: absolute;
+            right: 10px;
+            top: 60px;
+            z-index: 1100;
+            padding: 10px;
+        }
+        #profileMenu a:hover {
+            background: rgba(0, 123, 255, 0.1);
+            border-radius: 5px;
+        }
+        .container {
+            margin-top: 80px;
+            max-width: 600px;
+        }
+
+
+        .card {
+            border: none;
+            border-radius: 15px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            background-color: #00b894;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            font-size: 1.5rem;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-control {
+            border-radius: 8px;
+            padding: 12px 15px;
+            border: 1px solid #dfe6e9;
+            box-shadow: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: #00b894;
+            box-shadow: 0 0 5px rgba(0, 184, 148, 0.5);
+        }
+
+        .btn-primary {
+            background-color: #00b894;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 20px;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #008d68;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 767px) {
+            .card-header {
+                font-size: 1.25rem;
+            }
+        }
+
+        body{
+            background-color: rgb(59, 58, 58);
+            color: rgb(252, 249, 249);
+            background-image: url(sales.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-sm navbar-dark shadow-sm p-2 fixed-top">
+        <div class="container-fluid d-flex align-items-center">
+            <i class="bi bi-list fs-3 me-3" onclick="toggleSidebar(event)"></i>
+            <img src="logo1.jpg" alt="Logo" width="40" height="40" class="me-2">
+            <h4 class="mb-0">MicroBizz Hub</h4>
+            <i class="bi bi-person-circle fs-3 ms-auto" id="profileIcon" onclick="toggleProfileMenu(event)"></i>
+        </div>
+    </nav>
+
+    <div id="sidebar">
+        <ul class="nav flex-column">
+            <li class="nav-item"><a href="home.html" class="nav-link"><i class="bi bi-house-door"></i> Home</a></li>
+            <li class="nav-item"><a href="employee.html" class="nav-link"><i class="bi bi-people"></i> Employee</a></li>
+            <li class="nav-item"><a href="sales.html" class="nav-link"><i class="bi bi-graph-up-arrow"></i> Sales</a></li>
+            <li class="nav-item"><a href="transactions.html" class="nav-link"><i class="bi bi-wallet2"></i> Transactions</a></li>
+            <li class="nav-item"><a href="connections.html" class="nav-link"><i class="bi bi-globe"></i> Connections</a></li>
+        </ul>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h3>Enter Sales and Expenses</h3>
+            </div>
+            <div class="card-body">
+                <form id="salesForm">
+                    <div class="form-group">
+                        <label for="date" class="form-label">Date</label>
+                        <input type="date" id="date" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sales" class="form-label">Sales</label>
+                        <input type="number" id="sales" class="form-control" placeholder="Enter sales amount" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="expenses" class="form-label">Expenses</label>
+                        <input type="number" id="expenses" class="form-control" placeholder="Enter expenses amount" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 mt-4">Update</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar Overlay -->
+    <div id="overlay" class="overlay" onclick="closeSidebar()"></div>
+
+    <!-- Profile Menu -->
+    <div id="profileMenu" class="shadow p-3">
+        <ul class="list-unstyled mb-0">
+            <li><a class="d-block text-dark text-decoration-none py-1" href="#"><i class="bi bi-person"></i> Profile</a></li>
+            <li><a class="d-block text-dark text-decoration-none py-1" href="#"><i class="bi bi-gear"></i> Settings</a></li>
+            <li><a class="d-block text-dark text-decoration-none py-1" href="#"><i class="bi bi-bell"></i> Notifications</a></li>
+        </ul>
+    </div>
+
+    <script>
+        // Function to handle sidebar toggle
+        function toggleSidebar(event) {
+            event.stopPropagation();
+            var sidebar = document.getElementById("sidebar");
+            var overlay = document.getElementById("overlay");
+
+            if (sidebar.style.left === "0px") {
+                sidebar.style.left = "-250px";
+                overlay.style.display = "none";
+            } else {
+                sidebar.style.left = "0px";
+                overlay.style.display = "block";
+            }
+        }
+
+        // Function to close sidebar overlay
+        function closeSidebar() {
+            document.getElementById("sidebar").style.left = "-250px";
+            document.getElementById("overlay").style.display = "none";
+        }
+
+        // Function to toggle profile menu
+        function toggleProfileMenu(event) {
+            event.stopPropagation();
+            var profileMenu = document.getElementById("profileMenu");
+            profileMenu.style.display = profileMenu.style.display === "block" ? "none" : "block";
+        }
+
+        document.getElementById('salesForm').addEventListener('submit', function(event) {
+    event.preventDefault();  // Prevent page reload on form submission
+
+    const date = document.getElementById('date').value;
+    const sales = parseFloat(document.getElementById('sales').value);
+    const expenses = parseFloat(document.getElementById('expenses').value);
+
+    if (isNaN(sales) || isNaN(expenses)) {
+        alert("Please enter valid numbers for Sales and Expenses.");
+        return;
+    }
+
+    // Get the day of the week based on the selected date
+    let dayOfWeek = new Date(date).getDay();  // Get day of week (0 = Sunday, 1 = Monday, etc.)
+
+    // Make sure that dayOfWeek is correct (e.g., 1 for Monday)
+    console.log("Day of Week: " + dayOfWeek); // Debugging: Check the correct value for the day
+
+    // Retrieve existing weekly data from localStorage or set default values if not present
+    let weeklySales = JSON.parse(localStorage.getItem('weeklySales')) || [800, 1200, 1000, 1700, 2000, 2500, 3000];
+    let weeklyExpenses = JSON.parse(localStorage.getItem('weeklyExpenses')) || [400, 600, 700, 500, 800, 1200, 1000];
+
+    // Update the weekly sales and expenses for the corresponding day of the week
+    weeklySales[dayOfWeek] = sales;
+    weeklyExpenses[dayOfWeek] = expenses;
+
+    // Save the updated data back to localStorage
+    localStorage.setItem('weeklySales', JSON.stringify(weeklySales));
+    localStorage.setItem('weeklyExpenses', JSON.stringify(weeklyExpenses));
+
+    // Optionally, you can also update monthly data here if needed
+
+    // Redirect to the home page (or the page where the charts are displayed)
+    window.location.href = "home.html";  // Adjust the URL to your actual Home Page
+});
+</script>
+</html>
