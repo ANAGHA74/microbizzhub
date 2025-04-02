@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>MicroBizz Hub</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+        body{
+            background-color: rgb(7, 7, 7);
+            top: 0px;
+            color: aliceblue;
+            overflow-x: hidden;
+        }
+        .navbar {
+            height: 50px;
+            background-color: rgb(3, 0, 0);
+            backdrop-filter: blur(9px);
+        }
+        .navbar h4, .navbar .bi {
+            color: white;
+            cursor: pointer;
+        }
+    
+
+        .right-icons {
+            display: flex;
+            gap: 30px;
+        }
+
+        .right-icons a {
+            text-decoration: none;
+            color: white;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .carousel-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 90vh; 
+            margin-top: 150px; 
+            height: calc(100vh - 55px);
+            margin-top: 55px;
+        }
+
+        .carousel {
+          width: 100vw;
+          height: 100vh;
+            position: relative;
+            
+        }
+
+        .carousel-inner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px; 
+        }
+        .carousel-item {
+    height: 100vh; 
+    width: 100vw;
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+}
+
+       
+        .get-started-btn {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color:green;
+            color: rgb(12, 12, 12);
+            border: none;
+            padding: 12px 24px;
+            font-size: 1.2rem;
+            border-radius: 30px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .get-started-btn:hover {
+            background-color: #e2e7ec;
+        }
+        .modal-dialog {
+            max-width: 400px;
+            margin-top: 15vh;
+        }
+
+        .modal-content {
+            border-radius: 15px; 
+            padding: 20px;
+            background-color: #9ea1a5;
+        }
+        .error{
+            color: red;
+            font-size: 0.9rem;
+        }
+        .form-control{
+            background-color: #d4dce7;
+        }
+       
+.top-bar {
+    top: 40px;
+}
+.quote-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+   height: 40px;
+    background-color: #1a1717; 
+    color: white;
+    position: fixed;
+    top: 0;
+    z-index: 1001;
+}
+
+.quote-text {
+    text-align: left; 
+    font-size: 13px;
+    font-weight: bold;
+    flex-grow: 1;
+}
+.premium-plans {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            color: white;
+            margin-top: 5px;
+        }
+        .plan {
+            border: 2px solid white;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px;
+        }
+.footer {
+            background-color: #999797;
+            color: #101010;
+            padding: 20px 0;
+            text-align: center;
+        }
+        .footer a {
+            color: #111010;
+            text-decoration: none;
+            margin: 20px 20px;
+        }
+        .footer a:hover {
+            color: white;
+        }
+
+</style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-sm navbar-dark shadow-sm p-2 fixed-top">
+        <div class="container-fluid d-flex align-items-center">
+            <div class="fw-bold" style="font-size: larger;"><img src="logo1.jpg" alt="Logo" width="45" height="45" class="me-2"><span>MICROBIZZ HUB</span></div>
+            
+            <div class="right-icons">
+            <a href="home.html"><i class="bi bi-house-door" style="font-size: 1.2rem;"></i><span>Home</span></a>
+            <a href="#"><i class="bi bi-question-circle" data-bs-toggle="tooltip" title="Need help? Click for support." style="font-size: 1.2rem;"></i><span>Help</span></a>
+            </div>
+        </div>
+    </nav>
+   
+   
+    <div class="carousel-container">
+        <div id="myCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active"></button>
+                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1"></button>
+                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active" data-bs-interval="3000">
+                    <img src="pic1_darkened.jpg" alt="Slide 1">
+                    <div class="carousel-caption">
+                        <h2 style="text-align: center;margin-bottom: 50px;font-size: 50px;">Grow Smarter with Micro Bizz Hub!</h2>
+                        <p style="text-align: center;margin-bottom: 250px;font-size: 25px;">Track Profits, Cut Losses, Grow Smarter</p>
+                      </div>
+                    <button class="get-started-btn" data-bs-toggle="modal" data-bs-target="#loginModal">Get Started <i class="bi bi-arrow-right"></i></button>
+                </div>
+                <div class="carousel-item" data-bs-interval="3000">
+                    <img src="demo_dark.webp" alt="Slide 2">
+                    <div class="carousel-caption">
+                        <h2 style="text-align: center;margin-bottom: 50px;font-size: 50px;">Seamless Transactions, Limitless Growth</h2>
+                        <p style="text-align: center;margin-bottom: 250px;font-size: 25px;">Effortless digital transactions to drive your business forward</p>
+                      </div>
+                    <button class="get-started-btn" data-bs-toggle="modal" data-bs-target="#loginModal">Get Started <i class="bi bi-arrow-right"></i></button>
+                </div>
+                <div class="carousel-item" data-bs-interval="3000">
+                    <img src="pic3_dark.jpg" alt="Slide 3">
+                    <div class="carousel-caption">
+                        <h2 style="text-align: center;margin-bottom: 50px;font-size: 50px;">Empowering Connections, Expanding Opportunities</h2>
+                        <p style="text-align: center;margin-bottom: 25px;font-size: 25px;">"Seamlessly linking businesses to foster growth and innovation."</p>
+                        <div class="premium-plans" style="text-align: center;margin-bottom: 25px;">
+                            <h3>Premium Plans</h3>
+                            <div class="plan" onclick="selectPlan(this)" data-plan="free">
+                                Free Trial: 1 Month
+                            </div>
+                            <div class="plan" onclick="selectPlan(this)" data-plan="subscription">
+                                Subscription: ₹10 per month
+                            </div>
+                        </div>
+                        
+                       
+                        
+                      </div>
+                    <button class="get-started-btn" data-bs-toggle="modal" data-bs-target="#loginModal">Get Started <i class="bi bi-arrow-right"></i></button>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </button>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Micro Bizz Hub. All Rights Reserved.</p>
+            <p>
+                <a href="https://facebook.com"><i class="bi bi-facebook"></i></a>
+                <a href="https://twitter.com"><i class="bi bi-twitter"></i></a>
+                <a href="https://linkedin.com"><i class="bi bi-linkedin"></i></a>
+                <a href="https://instagram.com"><i class="bi bi-instagram"></i></a>
+            </p>
+        </div>
+    </footer>
+
+    
+    
+    
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">Login</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="loginForm">
+                    <form onsubmit="return validateAndRedirect(event)">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="email" placeholder="Enter your email">
+                            <span id="emailError" class="error"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" placeholder="Enter your password">
+                            <span id="passwordError" class="error"></span>
+                        </div>
+                        <a href="#" class="btn btn-success w-100" onclick="return validateAndRedirect(event)">Login</a>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <p class="text-center w-100">Don't have an account? <a href="#" onclick="showRegister()" style="color: black;">Sign up</a></p>
+                </div>
+<div id="registerForm" style="display: none;">
+    <form onsubmit="validateRegistration(event)">
+        <div class="mb-3">
+            <label for="regName" class="form-label">Full Name</label>
+            <input type="text" class="form-control" id="regName" placeholder="Enter your name">
+            <span id="nameError" class="error"></span>
+        </div>
+        <div class="mb-3">
+            <label for="regEmail" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="regEmail" placeholder="Enter your email">
+            <span id="regEmailError" class="error"></span>
+        </div>
+        <div class="mb-3">
+            <label for="regPassword" class="form-label">Password</label>
+            <input type="password" class="form-control" id="regPassword" placeholder="Create a password">
+            <span id="regPasswordError" class="error"></span>
+        </div>
+        <div class="mb-3">
+            <label for="regConfirmPassword" class="form-label">Confirm Password</label>
+            <input type="password" class="form-control" id="regConfirmPassword" placeholder="Confirm password">
+            <span id="confirmPasswordError" class="error"></span>
+        </div>
+        <button type="submit" class="btn btn-success w-100">Register</button>
+    </form>
+    <p class="text-center mt-3"><a href="#" onclick="showLogin()" style="color: black;">Back to Login</a></p>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+   
+    <script>
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+    </script>
+    <script>
+                            function selectPlan(selectedPlan) {
+                                // Remove selection from all plans
+                                document.querySelectorAll('.plan').forEach(plan => {
+                                    plan.style.border = "2px solid white";
+                                    plan.style.backgroundColor = "transparent";
+                                });
+                        
+                                // Highlight the selected plan
+                                selectedPlan.style.border = "2px solid yellow";
+                                selectedPlan.style.backgroundColor = "rgba(255, 255, 0, 0.2)";
+                            }
+                    
+        function validateAndRedirect(event) {
+            event.preventDefault();
+            let isValid = true;
+    
+            // Get values
+            let email = document.getElementById("email").value.trim();
+            let password = document.getElementById("password").value.trim();
+    
+            
+            let emailError = document.getElementById("emailError");
+            let passwordError = document.getElementById("passwordError");
+    
+             emailError.textContent = "";
+            passwordError.textContent = "";
+    
+            let emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+            if (!email.match(emailPattern)) {
+                emailError.textContent = "Enter a valid email (example@example.com)";
+                isValid = false;
+            }
+    
+            if (password.length < 6) {
+                passwordError.textContent = "Password must be at least 6 characters";
+                isValid = false;
+            }
+    
+            if (isValid) {
+                window.location.href = "home.html";
+            }
+        }
+        
+    function showRegister() {
+        document.getElementById("loginForm").style.display = "none";
+        document.getElementById("registerForm").style.display = "block";
+        document.getElementById("loginModalLabel").textContent = "Register";
+
+        document.querySelector(".modal-footer").style.display = "none";
+    }
+
+    function showLogin() {
+        document.getElementById("registerForm").style.display = "none";
+        document.getElementById("loginForm").style.display = "block";
+        document.getElementById("loginModalLabel").textContent = "Login";
+
+        document.querySelector(".modal-footer").style.display = "block";
+    }
+
+    function validateRegistration(event)  {
+        event.preventDefault();
+
+        let isValid = true;
+
+        let name = document.getElementById("regName").value.trim();
+        let email = document.getElementById("regEmail").value.trim();
+        let password = document.getElementById("regPassword").value.trim();
+        let confirmPassword = document.getElementById("regConfirmPassword").value.trim();
+
+        let nameError = document.getElementById("nameError");
+        let emailError = document.getElementById("regEmailError");
+        let passwordError = document.getElementById("regPasswordError");
+        let confirmPasswordError = document.getElementById("confirmPasswordError");
+
+        nameError.textContent = "";
+        emailError.textContent = "";
+        passwordError.textContent = "";
+        confirmPasswordError.textContent = "";
+
+        if (name === "") {
+            nameError.textContent = "Full name is required";
+            isValid = false;
+        }
+
+        let emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+        if (!email.match(emailPattern)) {
+            emailError.textContent = "Enter a valid email (example@example.com)";
+            isValid = false;
+        }
+
+        if (password.length < 6) {
+            passwordError.textContent = "Password must be at least 6 characters";
+            isValid = false;
+        }
+
+        if (confirmPassword !== password) {
+            confirmPasswordError.textContent = "Passwords do not match";
+            isValid = false;
+        }
+
+        if (isValid) {
+            window.location.href = "home.html";
+         }
+    }
+    </script>
+</body>
+</html>
+
+
+
+
