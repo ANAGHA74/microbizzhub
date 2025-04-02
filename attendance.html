@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Attendance History - MicroBizz Hub</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<style>
+     .navbar {
+            background-color: rgb(37, 36, 36);
+            backdrop-filter: blur(9px);
+        }
+        .navbar h4, .navbar .bi {
+            color: white;
+            cursor: pointer;
+        }
+
+        /* Sidebar */
+        #sidebar {
+            width: 250px;
+            left: -250px;
+            background: #d3d3d5;
+            transition: 0.3s;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            z-index: 1000;
+            padding-top: 60px;
+        }
+        #sidebar .nav-link {
+            color: black;
+            padding: 10px;
+        }
+        #sidebar .nav-link:hover {
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        /* Overlay for Sidebar */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            z-index: 999;
+        }
+        .btn-secondary {
+            background-color: #0ac178;
+        }
+
+
+        /* Profile Menu */
+        #profileMenu {
+            background: white;
+            border-radius: 5px;
+            display: none;
+            position: absolute;
+            right: 10px;
+            top: 60px;
+            z-index: 1100;
+            padding: 10px;
+        }
+        #profileMenu a:hover {
+            background: rgba(0, 123, 255, 0.1);
+            border-radius: 5px;
+        }
+
+        
+        body{
+            background-color: rgb(59, 58, 58);
+            color: rgb(252, 249, 249);
+            padding-top: 45px;
+        }
+    </style>
+
+<body>
+    <div id="overlay" class="overlay" onclick="closeSidebar()"></div>
+
+    <nav class="navbar navbar-expand-sm navbar-dark shadow-sm p-2 fixed-top">
+        <div class="container-fluid d-flex align-items-center">
+            <i class="bi bi-list fs-3 me-3" onclick="toggleSidebar(event)"></i>
+            <img src="logo1.jpg" alt="Logo" width="40" height="40" class="me-2">
+            <h4 class="mb-0">MicroBizz Hub</h4>
+            <i class="bi bi-person-circle fs-3 ms-auto" id="profileIcon" onclick="toggleProfileMenu(event)"></i>
+        </div>
+    </nav>
+    <div id="sidebar">
+        <ul class="nav flex-column">
+            <li class="nav-item"><a href="home.html" target="_self" class="nav-link"><i class="bi bi-house-door"></i> Home</a></li>
+            <li class="nav-item"><a href="employee.html" target="_self" class="nav-link"><i class="bi bi-people"></i> Employee</a></li>
+            <li class="nav-item"><a href="sales.html"  target="_self" class="nav-link"><i class="bi bi-graph-up-arrow"></i> Sales</a></li>
+            <li class="nav-item"><a href="transactions.html" target="_self" class="nav-link"><i class="bi bi-wallet2"></i> Transactions</a></li>
+            <li class="nav-item"><a href="connections.html" target="_self" class="nav-link"><i class="bi bi-globe"></i> Connections</a></li>
+        </ul>
+    </div>
+    <div class="container mt-4">
+        <h3>Attendance History</h3>
+        <input type="text" id="searchBar" class="form-control mb-3" placeholder="Search employee..." oninput="filterEmployees()">
+        <div id="attendanceHistory"></div>
+        <a href="employee.html" class="btn btn-secondary mt-3">Back to Employee Page</a>
+    </div>
+    <div id="profileMenu" class="shadow p-3">
+        <ul class="list-unstyled mb-0">
+            <li><a class="d-block text-dark text-decoration-none py-1" href="#"><i class="bi bi-person"></i> Profile</a></li>
+            <li><a class="d-block text-dark text-decoration-none py-1" href="#"><i class="bi bi-gear"></i> Settings</a></li>
+            <li><a class="d-block text-dark text-decoration-none py-1" href="#"><i class="bi bi-bell"></i> Notifications</a></li>
+        </ul>
+    </div>
+
+    <script>
+        function toggleSidebar(event) {
+            event.stopPropagation();
+            var sidebar = document.getElementById("sidebar");
+            var overlay = document.getElementById("overlay");
+
+            if (sidebar.style.left === "0px") {
+                sidebar.style.left = "-250px";
+                overlay.style.display = "none";
+            } else {
+                sidebar.style.left = "0px";
+                overlay.style.display = "block";
+            }
+        }
+
+        function closeSidebar() {
+            document.getElementById("sidebar").style.left = "-250px";
+            document.getElementById("overlay").style.display = "none";
+        }
+
+        function toggleProfileMenu(event) {
+            event.stopPropagation();
+            var profileMenu = document.getElementById("profileMenu");
+            profileMenu.style.display = profileMenu.style.display === "block" ? "none" : "block";
+        }
+       
+        const employees = JSON.parse(localStorage.getItem('employees')) || [];
+
+        function renderAttendanceHistory() {
+            const container = document.getElementById('attendanceHistory');
+            container.innerHTML = employees.map(emp => {
+                const sortedAttendance = Object.entries(emp.attendance || {}).sort((a, b) => new Date(a[0]) - new Date(b[0]));
+                const monthlyAttendance = sortedAttendance.filter(([_, status]) => status === true).length;
+                return `
+                    <div class="mb-4 employee-table" data-name="${emp.name.toLowerCase()}">
+                        <h5>${emp.name}</h5>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr><th>Date</th><th>Status</th></tr>
+                            </thead>
+                            <tbody>
+                                ${sortedAttendance.map(([date, status]) => 
+                                    `<tr><td>${date}</td><td>${status ? 'Present' : 'Absent'}</td></tr>`
+                                ).join('')}
+                            </tbody>
+                            <tfoot>
+                                <tr><td>Total Attendance (Month)</td><td>${monthlyAttendance}</td></tr>
+                            </tfoot>
+                        </table>
+                    </div>`;
+            }).join('');
+        }
+
+        function filterEmployees() {
+            const query = document.getElementById('searchBar').value.toLowerCase();
+            document.querySelectorAll('.employee-table').forEach(table => {
+                table.style.display = table.dataset.name.includes(query) ? 'block' : 'none';
+            });
+        }
+
+        renderAttendanceHistory();
+    </script>
+</body>
+</html>
